@@ -113,9 +113,9 @@ class mopiapi():
 			tries += 1
 		# unsucessfully read
 		if error != 0:
-			if e.errno == errno.EIO:
-				e.strerror = "I2C bus input/output error on read config"
-			raise e
+			if error.errno == errno.EIO:
+				error.strerror = "I2C bus input/output error on read config"
+			raise error
 		if tries == MAXTRIES or (self.maj == 3 and self.minr > 9 and data[0] == 255):
 			raise IOError(errno.ECOMM, "Communications protocol error on read config")
 		# behaivour changed at v3.10 to 5x0 so that 255 could serve as error detection
@@ -169,9 +169,9 @@ class mopiapi():
 			tries += 1
 		# unsucessfully written
 		if error != 0:
-			if e.errno == errno.EIO:
-				e.strerror = "I2C bus input/output error on send config"
-			raise e
+			if error.errno == errno.EIO:
+				error.strerror = "I2C bus input/output error on send config"
+			raise error
 		if tries == MAXTRIES:
 			raise IOError(errno.ECOMM, "Communications protocol error on send config")
 
@@ -208,9 +208,9 @@ class mopiapi():
 			tries += 1
 		# unsucessfully read
 		if error != 0:
-			if e.errno == errno.EIO:
-				e.strerror = "I2C bus input/output error on read word"
-			raise e
+			if error.errno == errno.EIO:
+				error.strerror = "I2C bus input/output error on read word"
+			raise error
 		if data == 0xFFFF:
 			raise IOError(errno.ECOMM, "Communications protocol error on read word")
 		return data
@@ -260,9 +260,9 @@ class mopiapi():
 			tries += 1
 		# unsucessfully written
 		if error != 0:
-			if e.errno == errno.EIO:
-				e.strerror = "I2C bus input/output error on write word"
-			raise e
+			if error.errno == errno.EIO:
+				error.strerror = "I2C bus input/output error on write word"
+			raise error
 		if tries == MAXTRIES:
 			raise IOError(errno.ECOMM, "Communications protocol error on write word")
 			
